@@ -81,4 +81,11 @@ contract NFTMarketplace is Context {
 
         counter++;
     }
+
+    function cancelListing(
+        address nftAddress
+    ) external isOwner(nftAddress, _msgSender()) isListed(nftAddress) {
+        delete s_listings[nftAddress];
+        emit LogItemCanceled(_msgSender(), nftAddress);
+    }
 }
