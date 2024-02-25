@@ -119,4 +119,18 @@ contract NFTMarketplace is Context {
         (bool success, ) = payable(_msgSender()).call{value: proceeds}("");
         require(success, "Transfer failed");
     }
+
+    function getListing(
+        address nftAddress
+    ) external view returns (Listing memory) {
+        return s_listings[nftAddress];
+    }
+
+    function getProceeds(address seller) external view returns (uint256) {
+        return s_proceeds[seller];
+    }
+
+    function numListings() external view returns (uint256) {
+        return counter;
+    }
 }
