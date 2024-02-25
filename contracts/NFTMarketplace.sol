@@ -75,10 +75,8 @@ contract NFTMarketplace is Context {
             revert NotApproved();
         }
 
-        // Store the listing information
         s_listings[nftAddress] = Listing(price, _msgSender());
 
-        // Emit event
         emit LogItemListed(_msgSender(), nftAddress, price);
 
         counter++;
