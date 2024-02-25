@@ -88,4 +88,26 @@ contract NFTMarketplace is Context {
         delete s_listings[nftAddress];
         emit LogItemCanceled(_msgSender(), nftAddress);
     }
+
+    function buyItem(
+        address nftAddress,
+        uint256 fraction
+    ) external payable isListed(nftAddress) {
+        Listing memory listedItem = s_listings[nftAddress];
+        require(msg.value >= listedItem.price, "Price not met");
+
+        s_proceeds[listedItem.seller] += msg.value;
+        delete s_listings[nftAddress];
+        IDN404(nftAddress).transferFrom(
+            listedItem.seller,
+            _msgSender(),
+            fraction
+        );
+        emit LogItemBought(
+            _msgSender(),
+            nftAddress,
+            listedItem.price,
+            fraction
+        );
+    }
 }
