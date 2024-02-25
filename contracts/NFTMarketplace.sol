@@ -110,4 +110,13 @@ contract NFTMarketplace is Context {
             fraction
         );
     }
+
+    function withdrawProceeds() external {
+        uint256 proceeds = s_proceeds[_msgSender()];
+        require(proceeds > 0, "No proceeds");
+        s_proceeds[_msgSender()] = 0;
+
+        (bool success, ) = payable(_msgSender()).call{value: proceeds}("");
+        require(success, "Transfer failed");
+    }
 }
