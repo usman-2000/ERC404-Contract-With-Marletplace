@@ -1,8 +1,10 @@
 const { ethers } = require("hardhat");
 
 async function main() {
+
   const [deployer] = await ethers.getSigners();
-  console.log("Contract Deployed with address : ", deployer);
+
+  console.log("Deploying contracts with the account:", deployer.address);
 
   const NFTMarketplace = await ethers.getContractFactory("NFTMarketplace");
   const marketplace = await NFTMarketplace.deploy();
@@ -12,7 +14,7 @@ async function main() {
 
 main()
   .then(() => process.exit(0))
-  .catch((err) => {
-    console.log(err);
+  .catch(error => {
+    console.error(error);
     process.exit(1);
   });

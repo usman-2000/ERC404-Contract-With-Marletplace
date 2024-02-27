@@ -7,6 +7,7 @@ async function main() {
   const symbol = "URK";
   const maxSupply = ethers.parseEther("50");
   const initialTokenSupply = ethers.parseEther("0");
+  const publicPrice = ethers.parseEther("0")
   const signer = deployer.address;
 
   const argumentsArray = [
@@ -14,7 +15,7 @@ async function main() {
     symbol,
     maxSupply.toString(),
     publicPrice.toString(),
-    initialtokenSupply.toString(),
+    initialTokenSupply.toString(),
     signer,
   ];
   const content =
